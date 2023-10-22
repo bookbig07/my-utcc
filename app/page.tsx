@@ -1,10 +1,12 @@
 import React from 'react'
-import Login from '@/components/Login'
+import Sidebar from '@/components/Sidebar'
 
 export default function Home() {
   return (
     <>
-      <Login/>
+      <div className="min-h-screen bg-gray-100">
+        <Sidebar/>
+      </div>
     </>
   )
 }
