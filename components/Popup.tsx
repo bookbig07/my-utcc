@@ -71,11 +71,11 @@ const Popup = ({ isOpen, buttonName }: any) => {
         </div>
       </div>
       <div className="flex justify-end my-2">
-        <button className="p-2 bg-blue-500 hover:bg-blue-700 text-white m-2">
+        <button className="p-2 text-sm font-bold text-white bg-blue-700 rounded-lg hover:bg-blue-800 m-2">
           SAVE
         </button>
         <button
-          className="p-2 bg-gray-400 hover:bg-gray-600 m-2"
+          className="p-2 text-white bg-red-700 hover:bg-red-400 rounded-lg m-2"
           onClick={() => isOpen(false)}
         >
           CANCEL
