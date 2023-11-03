@@ -38,7 +38,7 @@ function Signin() {
               Sign in to your account
             </h1>
             <form
-              className="space-y-4 md:space-y-6" /*onSubmit={handleSubmit}*/
+              className="space-y-4 md:space-y-6" onSubmit={handleSubmit}
             >
               <div>
                 <label
