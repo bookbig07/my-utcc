@@ -8,26 +8,26 @@ function Signin() {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  // const handleSubmit = async (e: { preventDefault: () => void; }) => {
-  //     e.preventDefault();
-  //     try {
-  //         const response = await fetch("http://localhost:8080/users/login", {
-  //             method: "POST",
-  //             headers: {
-  //               "Content-Type": "application/json",
-  //             },
-  //             body: JSON.stringify({ email , password }),
-  //         });
-  //         const data = await response.json();
-  //         if (response.status == 200) {
-  //             Cookies.set("secret-utcc", data.secret);
-  //             router.push("/");
-  //             return
-  //         }
-  //     } catch (err) {
-  //         console.error('Error during registration:', err);
-  //     }
-  // }
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+      e.preventDefault();
+      try {
+          const response = await fetch("http://localhost:8080/users/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email , password }),
+          });
+          const data = await response.json();
+          if (response.status == 200) {
+              Cookies.set("secret-utcc", data.secret);
+              router.push("/");
+              return
+          }
+      } catch (err) {
+          console.error('Error during registration:', err);
+      }
+  }
 
   return (
     <section className="bg-gray-100">
