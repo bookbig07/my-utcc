@@ -44,6 +44,7 @@ interface Data {
   ConvertName: string;
   ConvertCredit: number;
   _id: string;
+  Setting?: string | number; // Add the 'setting' property with an optional string or number value
 }
 
 function createData(
