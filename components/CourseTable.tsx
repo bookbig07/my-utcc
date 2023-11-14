@@ -142,6 +142,26 @@ function CourseTable() {
     }
   };
 
+  const handleDeleteButton = async (indexCourse : any) => {
+    try {
+      const response = await fetch('http://localhost:8080/course/deleteCompareSubject', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({indexCourse}),
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text(); // Get the error message from the response body
+        throw new Error(`subject Error: ${errorMessage}`);
+      }
+      fetchData()
+    } catch (error) {
+      console.error(`Error: ${error}`);
+    }
+  }
+
   const SettingButton = ({ row }: { row: Data }) => {
     return (
       <div className="inline-flex rounded-md shadow-sm" role="group">
@@ -155,6 +175,7 @@ function CourseTable() {
         <button
           type="button"
           className="px-4 py-2 text-sm font-bold text-white bg-red-500 border border-gray-200 rounded-r-md hover:bg-red-800"
+          onClick={() => handleDeleteButton(row._id)}
         >
           Delete
         </button>
