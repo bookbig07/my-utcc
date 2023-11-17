@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 function Signup() {
     const [email, setEmail] = useState("");
@@ -11,7 +12,12 @@ function Signup() {
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         if (password != confirmpassword) {
-            console.log('password != confirmpassword')
+            Swal.fire({
+                title: "กรุณากรอกรหัสผ่านให้เหมือนกัน",
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+              });
             return;
         }
         try {
@@ -23,10 +29,21 @@ function Signup() {
                 body: JSON.stringify({ email , password }),
             });
             if (response.status != 201) {
-                console.log("FAIL")
+                Swal.fire({
+                    title: "ไม่สามารถสมัครได้",
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
                 return
             }
             router.push("/signin");
+            Swal.fire({
+                title: "สมัครสำเร็จ",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 2000,
+            });
         } catch (err) {
             console.error('Error during registration:', err);
         }

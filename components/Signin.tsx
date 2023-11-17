@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
@@ -20,6 +21,12 @@ function Signin() {
           });
           const data = await response.json();
           if (response.status == 200) {
+              Swal.fire({
+                title: "เข้าสู่ระบบสำเร็จ",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 2000,
+              });
               Cookies.set("secret-utcc", data.secret);
               router.push("/");
               return

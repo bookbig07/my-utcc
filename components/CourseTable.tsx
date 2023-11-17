@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -142,25 +143,48 @@ function CourseTable() {
     }
   };
 
-  const handleDeleteButton = async (indexCourse : any) => {
-    try {
-      const response = await fetch('http://localhost:8080/course/deleteCompareSubject', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({indexCourse}),
-      });
+  const handleDeleteButton = async (indexCourse: any) => {
+
+    const confirmationResult = await Swal.fire({
+      title: "ยืนยันที่จะลบข้อมูล ?",
+      text: "ท่านต้องการที่จะลบข้อมูลใช่ไหม!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete"
+    });
   
-      if (!response.ok) {
-        const errorMessage = await response.text(); // Get the error message from the response body
-        throw new Error(`subject Error: ${errorMessage}`);
+    if (confirmationResult.isConfirmed) {
+      try {
+        const response = await fetch('http://localhost:8080/course/deleteCompareSubject', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ indexCourse }),
+        });
+  
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(`Subject Error: ${errorMessage}`);
+        }
+  
+        Swal.fire({
+          title: "Deleted!",
+          text: "ลบข้อมูลสำเร็จ",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+  
+        fetchData();
+      } catch (error) {
+        console.error(`Error: ${error}`);
       }
-      fetchData()
-    } catch (error) {
-      console.error(`Error: ${error}`);
     }
-  }
+  };
+  
 
   const SettingButton = ({ row }: { row: Data }) => {
     return (

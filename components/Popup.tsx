@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 const Popup = ({ isOpen, buttonName , course , fetchData }: any) => {
   const [coursecode , setcoursecode] = useState('');
@@ -63,6 +64,12 @@ const Popup = ({ isOpen, buttonName , course , fetchData }: any) => {
         const errorMessage = await response.text(); // Get the error message from the response body
         throw new Error(`Failed to ${buttonName === 'add' ? 'add' : 'edit'} subject. Error: ${errorMessage}`);
       }
+      Swal.fire({
+        title: "ปรับแต่ง & เพิ่มข้อมูลสำเร็จ",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       isOpen(false)
       fetchData()
       console.log(`${buttonName === 'add' ? 'Add' : 'Edit'} request successful`);
